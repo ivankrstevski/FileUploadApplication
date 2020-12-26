@@ -40,6 +40,8 @@ namespace FileUploadApp.Repositories
                                 fileId = reader["Id"].ToString();
                             }
                         }
+
+                        connection.Close();
                     }
                 }
 
