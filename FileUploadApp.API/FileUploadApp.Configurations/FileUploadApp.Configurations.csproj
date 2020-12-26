@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileUploadApp.BusinessModel\FileUploadApp.BusinessModel.csproj" />
+    <ProjectReference Include="..\FileUploadApp.Configurations.Interfaces\FileUploadApp.Configurations.Interfaces.csproj" />
+    <ProjectReference Include="..\FileUploadApp.DataModel\FileUploadApp.DataModel.csproj" />
+  </ItemGroup>
+
+</Project>

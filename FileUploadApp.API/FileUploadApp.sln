@@ -1,0 +1,113 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp", "FileUploadApp\FileUploadApp.csproj", "{F212BC36-C492-41B3-B4B0-6435D30E4A53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{F5C64729-9E5B-4470-855B-618848207021}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{2A919A75-ABBA-4C51-BB80-A6FA5CD5AC06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{E3B3D685-14AD-4571-9489-564C0AEEB228}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{9D7A5269-27C5-4A0D-B9B1-01A6648D7AD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.BusinessLogic.Interfaces", "FileUploadApp.BusinessLogic.Interfaces\FileUploadApp.BusinessLogic.Interfaces.csproj", "{0E41E164-694E-4EA2-9AF6-EDFCB30448E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.BusinessLogic", "FileUploadApp.BusinessLogic\FileUploadApp.BusinessLogic.csproj", "{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.BusinessModel", "FileUploadApp.BusinessModel\FileUploadApp.BusinessModel.csproj", "{4D3594AD-DF6E-428F-996D-285F9AC1BFB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.DataModel", "FileUploadApp.DataModel\FileUploadApp.DataModel.csproj", "{FB5F5988-105B-43C1-B6FC-331C77C770ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Repositories.Interfaces", "FileUploadApp.Repositories.Interfaces\FileUploadApp.Repositories.Interfaces.csproj", "{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Repositories", "FileUploadApp.Repositories\FileUploadApp.Repositories.csproj", "{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Services.Interfaces", "FileUploadApp.Services.Interfaces\FileUploadApp.Services.Interfaces.csproj", "{2A20CB68-BC21-4D7A-9B25-883407D9950E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Services", "FileUploadApp.Services\FileUploadApp.Services.csproj", "{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{EE7FFB88-475C-452C-9D0F-0C33E070E8B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Configurations.Interfaces", "FileUploadApp.Configurations.Interfaces\FileUploadApp.Configurations.Interfaces.csproj", "{D631DA61-A171-474D-AA10-4AB85584F8CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.Configurations", "FileUploadApp.Configurations\FileUploadApp.Configurations.csproj", "{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUploadApp.DI", "FileUploadApp.DI\FileUploadApp.DI.csproj", "{51B1C5BF-956C-4B79-A378-17A152842239}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F212BC36-C492-41B3-B4B0-6435D30E4A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F212BC36-C492-41B3-B4B0-6435D30E4A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F212BC36-C492-41B3-B4B0-6435D30E4A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F212BC36-C492-41B3-B4B0-6435D30E4A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E41E164-694E-4EA2-9AF6-EDFCB30448E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E41E164-694E-4EA2-9AF6-EDFCB30448E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E41E164-694E-4EA2-9AF6-EDFCB30448E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E41E164-694E-4EA2-9AF6-EDFCB30448E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3594AD-DF6E-428F-996D-285F9AC1BFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3594AD-DF6E-428F-996D-285F9AC1BFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3594AD-DF6E-428F-996D-285F9AC1BFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3594AD-DF6E-428F-996D-285F9AC1BFB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB5F5988-105B-43C1-B6FC-331C77C770ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB5F5988-105B-43C1-B6FC-331C77C770ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB5F5988-105B-43C1-B6FC-331C77C770ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB5F5988-105B-43C1-B6FC-331C77C770ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A20CB68-BC21-4D7A-9B25-883407D9950E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A20CB68-BC21-4D7A-9B25-883407D9950E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A20CB68-BC21-4D7A-9B25-883407D9950E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A20CB68-BC21-4D7A-9B25-883407D9950E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D631DA61-A171-474D-AA10-4AB85584F8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D631DA61-A171-474D-AA10-4AB85584F8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D631DA61-A171-474D-AA10-4AB85584F8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D631DA61-A171-474D-AA10-4AB85584F8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B1C5BF-956C-4B79-A378-17A152842239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B1C5BF-956C-4B79-A378-17A152842239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B1C5BF-956C-4B79-A378-17A152842239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B1C5BF-956C-4B79-A378-17A152842239}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E41E164-694E-4EA2-9AF6-EDFCB30448E1} = {F5C64729-9E5B-4470-855B-618848207021}
+		{0BBE931B-7CC8-43DA-AC35-AEA88A9608CF} = {F5C64729-9E5B-4470-855B-618848207021}
+		{4D3594AD-DF6E-428F-996D-285F9AC1BFB8} = {9D7A5269-27C5-4A0D-B9B1-01A6648D7AD2}
+		{FB5F5988-105B-43C1-B6FC-331C77C770ED} = {9D7A5269-27C5-4A0D-B9B1-01A6648D7AD2}
+		{2B842587-8C59-4F5F-83F4-B4E8BD17B3CF} = {E3B3D685-14AD-4571-9489-564C0AEEB228}
+		{FE59CF5D-1A8B-48AD-94C6-580FECE8CC2F} = {E3B3D685-14AD-4571-9489-564C0AEEB228}
+		{2A20CB68-BC21-4D7A-9B25-883407D9950E} = {2A919A75-ABBA-4C51-BB80-A6FA5CD5AC06}
+		{CB508FA5-8FFA-43A0-8CB2-B909DA1C8A75} = {2A919A75-ABBA-4C51-BB80-A6FA5CD5AC06}
+		{D631DA61-A171-474D-AA10-4AB85584F8CB} = {EE7FFB88-475C-452C-9D0F-0C33E070E8B7}
+		{28A8E3FF-6EDF-43FB-AFB7-21FD8580518C} = {EE7FFB88-475C-452C-9D0F-0C33E070E8B7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA2DE253-9F1E-411E-B420-B774DB60B093}
+	EndGlobalSection
+EndGlobal

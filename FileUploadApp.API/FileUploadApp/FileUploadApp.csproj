@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FileUploadApp.BusinessLogic.Interfaces\FileUploadApp.BusinessLogic.Interfaces.csproj" />
+    <ProjectReference Include="..\FileUploadApp.BusinessModel\FileUploadApp.BusinessModel.csproj" />
+    <ProjectReference Include="..\FileUploadApp.DI\FileUploadApp.DI.csproj" />
+  </ItemGroup>
+
+</Project>
