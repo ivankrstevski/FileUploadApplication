@@ -1,0 +1,11 @@
+<div class="container">
+    <canvas *ngIf="!chartLoading && !errorHasOccured" baseChart [datasets]="barChartData" [labels]="barChartLabels"
+        [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
+    <div *ngIf="chartLoading" class="centered">
+        <div class="loader"></div>
+    </div>
+    <div *ngIf="!chartLoading && errorHasOccured">
+        <app-no-result-box text="Some error has occured." icon="glyphicon glyphicon-alert"></app-no-result-box>
+    </div>
+</div>

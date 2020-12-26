@@ -1,0 +1,15 @@
+.panel-footer, .panel-heading {
+  height: 55px !important;
+}
+
+.heading-style {
+    margin-top: 6px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.loading-text {
+  margin-left: 40px;
+}

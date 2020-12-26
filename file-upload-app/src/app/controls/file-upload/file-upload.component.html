@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="heading-style">
+            <i class="glyphicon glyphicon-file"></i>
+            <span class="margin-left-5">Upload a textual file</span>
+        </h4>
+    </div>
+    <form (ngSubmit)="onSubmit()" #uploadForm="ngForm">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="file">Choose a .txt File</label>
+                <input type="file" name="file" id="file" accept=".txt" [(ngModel)]="file"
+                    (change)="handleFileInput($event.target.files)">
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-success" [disabled]="!fileSelected || fileUploading">
+                Save
+            </button>
+            <span *ngIf="fileUploading">
+                <i class="mini-loader"></i>
+                <span class="loading-text">File is saving...</span>
+            </span>
+        </div>
+    </form>
+</div>

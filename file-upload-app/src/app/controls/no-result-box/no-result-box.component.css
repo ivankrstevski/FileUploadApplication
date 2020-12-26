@@ -1,0 +1,10 @@
+.box {
+    border: 2px dashed gray;
+    height: 50vh;
+    margin-top: 3px;
+}
+
+.icon-font {
+    font-size: 50px;
+    margin-left: 35%
+}

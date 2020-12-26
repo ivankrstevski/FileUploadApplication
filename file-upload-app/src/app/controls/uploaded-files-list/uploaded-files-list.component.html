@@ -1,0 +1,32 @@
+<h3 *ngIf="loadingFiles">
+    <div *ngIf="loadingFiles" class="centered">
+        <div class="loader"></div>
+    </div>
+</h3>
+<div *ngIf="!loadingFiles && updatedFiles && updatedFiles.length > 0">
+    <h4 class="heading-style">
+        <i class="glyphicon glyphicon-list"></i>
+        <span class="margin-left-5">List of Uploaded Files</span>
+    </h4>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="ordinal-width">#</th>
+                <th class="filename-width">File Name</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr [routerLink]="['/file-content', file.id]" class="cursor-pointer"
+                *ngFor="let file of updatedFiles; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ file.name }}</td>
+                <td>{{ file.createdAt | date: 'medium' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="(!loadingFiles && updatedFiles && updatedFiles.length === 0) || errorHasOccured">
+    <app-no-result-box text="No items were found." icon="glyphicon glyphicon-alert"></app-no-result-box>
+</div>

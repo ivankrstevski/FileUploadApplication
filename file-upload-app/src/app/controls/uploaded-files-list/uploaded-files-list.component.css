@@ -1,0 +1,23 @@
+.filename-width {
+    width: 63%;
+}
+
+.ordinal-width {
+    width: 10%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.heading-style {
+    margin-top: 5px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+tbody tr:hover {
+    background-color: #ffff66;
+}
