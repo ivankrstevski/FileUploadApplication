@@ -1,6 +1,6 @@
 # FileUploadApplication
 
-In order the application to work correctly tou need to have finished the setup steps below:
+In order the application to work correctly you need to have finished the setup steps below:
 
 1. Execute the scripts located in **FileUploadApp.Repositories/Scripts** folder according to the marked order. The scripts gonna create the required database and tables.
 
