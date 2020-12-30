@@ -2,9 +2,7 @@
 
 In order the application to work correctly you need to have finished the setup steps below:
 
-1. Execute the scripts located in **FileUploadApp.Repositories/Scripts** folder according to the marked order. The scripts gonna create the required database and tables.
-
-2. Once you have executed the scripts, find the **appsettings.json** file in the **FileUploadApp** and change the value for the **DefaultDbConnection** key according to your database environment.
+1. Find the **appsettings.json** file in the **FileUploadApp** project and change the value for the **DefaultDbConnection** key according to your database environment.
 
 3. Build the **FileUploadApp** application and run it using Kestrel web server.
 
