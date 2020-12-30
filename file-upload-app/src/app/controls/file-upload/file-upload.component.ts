@@ -54,8 +54,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         this.fileSelected = false;
         this.uploadForm.reset();
 
-        const errorMessage = (res.status === 501) ?
-          res.error : 'An error has occurred while adding the file.';
+        const errorMessage = (res.status === 409) ?
+          res.error.Message : 'An error has occurred while adding the file.';
 
         this.toastr.error(errorMessage, 'Error');
       });
