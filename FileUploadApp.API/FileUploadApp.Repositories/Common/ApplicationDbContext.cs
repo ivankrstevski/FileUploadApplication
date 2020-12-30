@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileUploadApp.DataModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace FileUploadApp.Repositories.Common
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
-        public string DefaultDbConnection { get; set; }
-
-        public ApplicationDbContext(string defaultDbConnection)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            DefaultDbConnection = defaultDbConnection;
+        }
+
+        public DbSet<UploadedFile> UploadedFiles { get; set; }
+        public DbSet<FileContentItem> FileContentItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UploadedFile>().ToTable("UploadedFile");
+            modelBuilder.Entity<FileContentItem>().ToTable("FileContentItem");
         }
     }
 }

@@ -3,205 +3,75 @@ using FileUploadApp.Repositories.Common;
 using FileUploadApp.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Linq;
 
 namespace FileUploadApp.Repositories
 {
     public class FileUploadRepository : IFileUploadRepository
     {
-        private readonly string _connectionString;
+        private readonly ApplicationDbContext _context;
 
-        public FileUploadRepository(ApplicationDbContext applicationDbContext)
+        public FileUploadRepository(ApplicationDbContext context)
         {
-            _connectionString = applicationDbContext.DefaultDbConnection;
+            _context = context;
         }
 
-        public string SaveFile(string fileName)
+        public void BeginTransaction()
         {
-            try
-            {
-                string fileId = null;
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    var query = "insert into dbo.UploadedFile (Name, CreatedAt) output Inserted.Id VALUES (@name, @createdAt)";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@name", fileName);
-                        command.Parameters.AddWithValue("@createdAt", DateTime.Now);
-
-                        connection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                fileId = reader["Id"].ToString();
-                            }
-                        }
-
-                        connection.Close();
-                    }
-                }
-
-                return fileId;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _context.Database.BeginTransaction();
         }
 
-        public void SaveFileContentItems(string fileId, List<FileContentItem> contentItems)
+        public void RollbackTransaction()
         {
-            try
+            _context.Database.RollbackTransaction();
+        }
+
+        public void CommitTransaction()
+        {
+            _context.Database.CommitTransaction();
+        }
+
+        public UploadedFile SaveFile(string fileName)
+        {
+            var newFile = new UploadedFile
             {
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    var query = @"insert into dbo.FileContentItem 
-                        (ParentId, Color, Number, Label, CreatedAt)
-                        VALUES (@parentId, @color, @number, @label, @createdAt)";
+                Name = fileName,
+                CreatedAt = DateTime.Now
+            };
 
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        connection.Open();
+            _context.UploadedFiles.Add(newFile);
 
-                        foreach (var item in contentItems)
-                        {
-                            command.Parameters.Clear();
+            _context.SaveChanges();
 
-                            command.Parameters.AddWithValue("@parentId", fileId);
-                            command.Parameters.AddWithValue("@color", item.Color);
-                            command.Parameters.AddWithValue("@number", item.Number);
-                            command.Parameters.AddWithValue("@label", item.Label);
-                            command.Parameters.AddWithValue("@createdAt", DateTime.Now);
+            return newFile;
+        }
 
-                            command.ExecuteNonQuery();
-                        }
+        public void SaveFileContentItems(UploadedFile uploadedFile, List<FileContentItem> contentItems)
+        {
+            uploadedFile.ContentItems = new List<FileContentItem>();
 
-                        connection.Close();
-                    }
-                }
-            }
-            catch (Exception)
+            foreach (var item in contentItems)
             {
-                throw;
+                item.CreatedAt = DateTime.Now;
+                uploadedFile.ContentItems.Add(item);
             }
+
+            _context.SaveChanges();
         }
 
         public List<UploadedFile> GetUploadedFiles()
         {
-            try
-            {
-                var uploadedFiles = new List<UploadedFile>();
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    var query = @"select * from dbo.UploadedFile";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        connection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                uploadedFiles.Add(new UploadedFile
-                                {
-                                    Id = reader["Id"].ToString(),
-                                    Name = reader["Name"].ToString(),
-                                    CreatedAt = DateTime.Parse(reader["CreatedAt"].ToString())
-                                });
-                            }
-                        }
-
-                        connection.Close();
-                    }
-                }
-
-                return uploadedFiles;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _context.UploadedFiles.OrderByDescending(x => x.CreatedAt).ToList();
         }
 
         public List<FileContentItem> GetFileContentItems(string fileId)
         {
-            try
-            {
-                var fileContentItems = new List<FileContentItem>();
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    var query = @"select fci.Color, fci.Label, fci.Number from dbo.UploadedFile uf 
-                        inner join dbo.FileContentItem fci on uf.Id = fci.ParentId where uf.Id = @fileId";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@fileId", fileId);
-
-                        connection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                fileContentItems.Add(new FileContentItem
-                                {
-                                    Color = reader["Color"].ToString(),
-                                    Label = reader["Label"].ToString(),
-                                    Number = int.Parse(reader["Number"].ToString())
-                                });
-                            }
-                        }
-
-                        connection.Close();
-                    }
-                }
-
-                return fileContentItems;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _context.FileContentItems.Where(x => x.UploadedFile.Id == Guid.Parse(fileId)).ToList();
         }
 
         public bool CheckIfFileAlreadyExist(string fileName)
         {
-            try
-            {
-                var fileExist = false;
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                {
-                    var query = @"select Id from dbo.UploadedFile where Name = @fileName";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@fileName", fileName);
-
-                        connection.Open();
-
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            fileExist = reader.HasRows;
-                        }
-
-                        connection.Close();
-                    }
-                }
-
-                return fileExist;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _context.UploadedFiles.Where(x => x.Name == fileName).Any();
         }
     }
 }

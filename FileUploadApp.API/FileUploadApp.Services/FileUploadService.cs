@@ -1,7 +1,6 @@
 ﻿using FileUploadApp.DataModel;
 using FileUploadApp.Repositories.Interfaces;
 using FileUploadApp.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 
 namespace FileUploadApp.Services
@@ -15,64 +14,44 @@ namespace FileUploadApp.Services
             _fileUploadRepository = fileUploadRepository;
         }
 
-        public string SaveFile(string fileName)
+        public void BeginTransaction()
         {
-            try
-            {
-                return _fileUploadRepository.SaveFile(fileName);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _fileUploadRepository.BeginTransaction();
         }
 
-        public void SaveFileContentItems(string fileId, List<FileContentItem> contentItems)
+        public void RollbackTransaction()
         {
-            try
-            {
-                _fileUploadRepository.SaveFileContentItems(fileId, contentItems);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _fileUploadRepository.RollbackTransaction();
+        }
+
+        public void CommitTransaction()
+        {
+            _fileUploadRepository.CommitTransaction();
+        }
+
+        public UploadedFile SaveFile(string fileName)
+        {
+            return _fileUploadRepository.SaveFile(fileName);
+        }
+
+        public void SaveFileContentItems(UploadedFile uploadedFile, List<FileContentItem> contentItems)
+        {
+            _fileUploadRepository.SaveFileContentItems(uploadedFile, contentItems);
         }
 
         public List<UploadedFile> GetUploadedFiles()
         {
-            try
-            {
-                return _fileUploadRepository.GetUploadedFiles();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _fileUploadRepository.GetUploadedFiles();
         }
 
         public List<FileContentItem> GetFileContentItems(string fileId)
         {
-            try
-            {
-                return _fileUploadRepository.GetFileContentItems(fileId);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _fileUploadRepository.GetFileContentItems(fileId);
         }
 
         public bool CheckIfFileAlreadyExist(string fileName)
         {
-            try
-            {
-                return _fileUploadRepository.CheckIfFileAlreadyExist(fileName);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _fileUploadRepository.CheckIfFileAlreadyExist(fileName);
         }
     }
 }

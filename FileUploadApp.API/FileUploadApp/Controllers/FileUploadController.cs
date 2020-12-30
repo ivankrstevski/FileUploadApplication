@@ -1,9 +1,6 @@
 ﻿using FileUploadApp.BusinessLogic.Interfaces;
 using FileUploadApp.BusinessModel;
-using FileUploadApp.Configurations.CustomExceptions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
 
 namespace FileUploadApp.Controllers
 {
@@ -11,87 +8,55 @@ namespace FileUploadApp.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
-        private readonly ILogger _logger;
         private readonly IFileUploadBusinessLogic _fileUploadBusinessLogic;
 
-        public FileUploadController(ILogger<FileUploadController> logger,
-            IFileUploadBusinessLogic fileUploadBusinessLogic)
+        public FileUploadController(IFileUploadBusinessLogic fileUploadBusinessLogic)
         {
-            _logger = logger;
             _fileUploadBusinessLogic = fileUploadBusinessLogic;
         }
 
         [HttpPost("upload-file")]
         public IActionResult UploadFile([FromForm] FileUpload fileUploadObject)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-
-                if (fileUploadObject.File.Length <= 0)
-                {
-                    return BadRequest("Provided file format is invalid");
-                }
-
-                if (fileUploadObject.File.ContentType != "text/plain")
-                {
-                    return BadRequest();
-                }
-
-                _fileUploadBusinessLogic.UploadFile(fileUploadObject);
-
-                return Ok();
+                return BadRequest();
             }
-            catch (FileAlreadyExistsException ex)
+
+            if (fileUploadObject.File.Length <= 0)
             {
-                _logger.LogError($"Method: UploadFile, Error: {ex.Message}");
-                return StatusCode(501, ex.Message);
+                return BadRequest();
             }
-            catch (Exception ex)
+
+            if (fileUploadObject.File.ContentType != "text/plain")
             {
-                _logger.LogError($"Method: UploadFile, Error: {ex.Message}");
-                return StatusCode(500);
+                return BadRequest("Provided file format is invalid");
             }
+
+            _fileUploadBusinessLogic.UploadFile(fileUploadObject);
+
+            return Ok();
         }
 
         [HttpGet("get-uploaded-files")]
         public IActionResult GetUploadedFiles()
         {
-            try
-            {
-                var uploadedFiles = _fileUploadBusinessLogic.GetUploadedFiles();
+            var uploadedFiles = _fileUploadBusinessLogic.GetUploadedFiles();
 
-                return Ok(uploadedFiles);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Method: GetUploadedFiles, Error: {ex.Message}");
-                return StatusCode(500);
-            }
+            return Ok(uploadedFiles);
         }
 
         [HttpGet("get-file-content-items")]
         public IActionResult GetFileContentItems(string fileId)
         {
-            try
+            if (string.IsNullOrEmpty(fileId))
             {
-                if (string.IsNullOrEmpty(fileId))
-                {
-                    return BadRequest();
-                }
-
-                var uploadedFiles = _fileUploadBusinessLogic.GetFileContentItems(fileId);
-
-                return Ok(uploadedFiles);
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Method: GetFileContentItems, Error: {ex.Message}");
-                return StatusCode(500);
-            }
+
+            var uploadedFiles = _fileUploadBusinessLogic.GetFileContentItems(fileId);
+
+            return Ok(uploadedFiles);
         }
     }
 }

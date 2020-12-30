@@ -29,103 +29,92 @@ namespace FileUploadApp.BusinessLogic
             var fileName = file.FileName;
             var fileContentItems = new List<DataModel.FileContentItem>();
 
-            try
+
+            if (fileUploadObject.File.Length > 0)
             {
-                if (fileUploadObject.File.Length > 0)
+                var fileExist = _fileUploadService.CheckIfFileAlreadyExist(fileName);
+
+                if (fileExist)
                 {
-                    var fileExist = _fileUploadService.CheckIfFileAlreadyExist(fileName);
+                    throw new FileAlreadyExistsException(fileName);
+                }
 
-                    if (fileExist)
+                using (var reader = new StreamReader(file.OpenReadStream()))
+                {
+                    string line;
+
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        throw new FileAlreadyExistsException(fileName);
-                    }
-
-                    using (var reader = new StreamReader(file.OpenReadStream()))
-                    {
-                        string line;
-
-                        while ((line = reader.ReadLine()) != null)
+                        if (!string.IsNullOrWhiteSpace(line))
                         {
-                            if (!string.IsNullOrWhiteSpace(line))
+                            var splittedLine = line.Split(",");
+
+                            if (splittedLine.Length == numberOfColumns)
                             {
-                                var splittedLine = line.Split(",");
+                                var color = splittedLine[0].Trim();
+                                int.TryParse(splittedLine[1], out var number);
+                                var label = splittedLine[numberOfColumns - 1].Trim();
 
-                                if (splittedLine.Length == numberOfColumns)
+                                if (number > 0 && !string.IsNullOrWhiteSpace(color)
+                                    && !string.IsNullOrWhiteSpace(label))
                                 {
-                                    var color = splittedLine[0].Trim();
-                                    int.TryParse(splittedLine[1], out var number);
-                                    var label = splittedLine[numberOfColumns - 1].Trim();
-
-                                    if (number > 0 && !string.IsNullOrWhiteSpace(color)
-                                        && !string.IsNullOrWhiteSpace(label))
+                                    var fileItem = new DataModel.FileContentItem
                                     {
-                                        var fileItem = new DataModel.FileContentItem
-                                        {
-                                            Color = color,
-                                            Number = number,
-                                            Label = label
-                                        };
+                                        Color = color,
+                                        Number = number,
+                                        Label = label
+                                    };
 
-                                        fileContentItems.Add(fileItem);
-                                    }
+                                    fileContentItems.Add(fileItem);
                                 }
-                                else
-                                {
-                                    throw new Exception("Invalid file content.");
-                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Invalid file content.");
                             }
                         }
                     }
+                }
 
-                    if (fileContentItems.Count > 0)
+                if (fileContentItems.Count > 0)
+                {
+                    try
                     {
-                        var fileId = _fileUploadService.SaveFile(fileName);
+                        _fileUploadService.BeginTransaction();
 
-                        if (!string.IsNullOrEmpty(fileId))
-                        {
-                            _fileUploadService.SaveFileContentItems(fileId, fileContentItems);
-                        }
+                        var uploadedFile = _fileUploadService.SaveFile(fileName);
+
+                        _fileUploadService.SaveFileContentItems(uploadedFile, fileContentItems);
+
+                        _fileUploadService.CommitTransaction();
+                    }
+                    catch (Exception)
+                    {
+                        _fileUploadService.RollbackTransaction();
+                        throw;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
         public List<UploadedFile> GetUploadedFiles()
         {
-            try
-            {
-                var dataResult = _fileUploadService.GetUploadedFiles();
+            var dataResult = _fileUploadService.GetUploadedFiles();
 
-                var result = _autoMapper.Map<List<DataModel.UploadedFile>, List<UploadedFile>>(dataResult);
+            var result = _autoMapper.Map<List<DataModel.UploadedFile>, List<UploadedFile>>(dataResult);
 
-                var sortedResultList = result.OrderByDescending(x => x.CreatedAt).ToList();
+            var sortedResultList = result.OrderByDescending(x => x.CreatedAt).ToList();
 
-                return sortedResultList;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return sortedResultList;
         }
 
         public List<FileContentItem> GetFileContentItems(string fileId)
         {
-            try
-            {
-                var dataResult = _fileUploadService.GetFileContentItems(fileId);
+            var dataResult = _fileUploadService.GetFileContentItems(fileId);
 
-                var result = _autoMapper.Map<List<DataModel.FileContentItem>, List<FileContentItem>>(dataResult);
+            var result = _autoMapper.Map<List<DataModel.FileContentItem>, List<FileContentItem>>(dataResult);
 
-                return result;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return result;
         }
     }
 }

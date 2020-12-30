@@ -5,9 +5,15 @@ namespace FileUploadApp.Services.Interfaces
 {
     public interface IFileUploadService
     {
-        public string SaveFile(string fileName);
+        public void BeginTransaction();
 
-        public void SaveFileContentItems(string fileId, List<FileContentItem> contentItems);
+        public void RollbackTransaction();
+
+        public void CommitTransaction();
+
+        public UploadedFile SaveFile(string fileName);
+
+        public void SaveFileContentItems(UploadedFile uploadedFile, List<FileContentItem> contentItems);
 
         public List<UploadedFile> GetUploadedFiles();
 

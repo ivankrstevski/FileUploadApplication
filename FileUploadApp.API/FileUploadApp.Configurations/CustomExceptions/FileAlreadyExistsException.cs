@@ -9,7 +9,6 @@ namespace FileUploadApp.Configurations.CustomExceptions
         public FileAlreadyExistsException(string fileName)
             : base($"File {fileName} already exists.")
         {
-
         }
     }
 }

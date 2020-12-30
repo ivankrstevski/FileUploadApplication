@@ -7,6 +7,7 @@ using FileUploadApp.Repositories.Common;
 using FileUploadApp.Repositories.Interfaces;
 using FileUploadApp.Services;
 using FileUploadApp.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +24,7 @@ namespace FileUploadApp.DI
             services.AddScoped<IAutoMapperAdapter, AutoMapperAdapter>();
 
             // Repositories
-            services.AddSingleton(new ApplicationDbContext(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IFileUploadRepository, FileUploadRepository>();
 
             // Services
